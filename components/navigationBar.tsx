@@ -6,7 +6,9 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import Link from "next/link";
 import { Card } from './ui/card';
 
-export default function NavigationBar() {
+export default function NavigationBar({ role }) {
+
+    console.log(role);
     return (
         <Card>
             <NavigationMenu>
@@ -26,20 +28,49 @@ export default function NavigationBar() {
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuItem>
-                        <NavigationMenuItem>
-                            <Link href="/dashboard" legacyBehavior passHref>
-                                <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
-                                    SampleLink 1
-                                </NavigationMenuLink>
-                            </Link>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>
-                            <Link href="/dashboard" legacyBehavior passHref>
-                                <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
-                                    SampleLink 2
-                                </NavigationMenuLink>
-                            </Link>
-                        </NavigationMenuItem>
+
+                        {role === 'casual' ? (
+                            <>
+                                <NavigationMenuItem>
+                                    <Link href="/availability" legacyBehavior passHref>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
+                                            Availability
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/assigned-shifts" legacyBehavior passHref>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
+                                            Assigned Shifts
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/open-shifts" legacyBehavior passHref>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
+                                            Availability
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                            </>
+                        ) : (
+                            <>
+                                <NavigationMenuItem>
+                                    <Link href="/view-employees" legacyBehavior passHref>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
+                                            View Employees
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/open-shifts" legacyBehavior passHref>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
+                                            Open Shifts
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                            </>
+                        )}
                     </div>
                     <div className="flex items-center" >
                         <NavigationMenuItem>

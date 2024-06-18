@@ -16,7 +16,7 @@ export async function createUser(userName: string, password: string): Promise<Us
         id: uuidv4(),
         userName,
         password,
-        role: "guest"
+        role: "casual"
     };
     await db.insert(userTable).values(user);
 
@@ -32,4 +32,24 @@ export function getUserByUserName(userName: string): User | undefined {
         .get();
 
     return user; // Ensure the correct type inference or explicitly cast if needed
+}
+
+export function getUserById(id: string): User | undefined {
+    const user = db
+        .select()
+        .from(userTable)
+        .where(eq(userTable.id, id))
+        .get();
+    return user; // Ensure the correct type inference or explicitly cast if needed
+}
+
+export function getRoleById(id: string) {
+    const userRole = db
+        .select({
+            role: userTable.role
+        })
+        .from(userTable)
+        .where(eq(userTable.id, id))
+        .get();
+    return userRole.role;
 }

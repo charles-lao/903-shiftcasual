@@ -37,32 +37,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## To-do
 
-[/] Install Lucia Auth
+[ ] Create dashboard for managers and casual employee
 
-[/] Install ShadUI + TailwindCSS
+[ ] Add availability module for casual employee
 
-[/] Install Drizzle ORM
+[ ] Apply for open shifts for casual employee
 
-[/] Create basic login page
+[ ] View available open shifts for casual employee
 
-[/] Create register user page
+[ ] Manage availability for casual employee
 
-[/] Create login function
+[ ] View all employee list for manager
 
-[/] Create logout function
+[ ] Create open shifts for manager
 
-[/] Create basic/reusable schema
-
-[ ] Organize file/folder structure
-
-[/] Fix unique id column for sqlite db
-
-[/] Fix auth errors
-
-[/] Create sample data for db
-
-[ ] Create basic dashboard/main page
-
-[/] Protect Dashboard page
-
-[ ] Role based login/protect
+[ ] Assign shifts to available employees
