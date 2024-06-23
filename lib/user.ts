@@ -8,14 +8,18 @@ export interface User {
     id: string;
     userName: string;
     password: string;
+    firstname: string;
+    lastname: string;
     role: string;
 }
 
-export async function createUser(userName: string, password: string): Promise<User> {
+export async function createUser(userName: string, password: string, firstname: string, lastname: string): Promise<User> {
     const user: User = {
         id: uuidv4(),
         userName,
         password,
+        firstname,
+        lastname,
         role: "casual"
     };
     await db.insert(userTable).values(user);
@@ -41,6 +45,15 @@ export function getUserById(id: string): User | undefined {
         .where(eq(userTable.id, id))
         .get();
     return user; // Ensure the correct type inference or explicitly cast if needed
+}
+
+export async function getAllCasuals() {
+    const results = db
+        .select()
+        .from(userTable)
+        .where(eq(userTable.role, "casual"));
+
+    return results;
 }
 
 export function getRoleById(id: string) {

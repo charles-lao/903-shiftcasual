@@ -38,6 +38,14 @@ export default function RegisterPage() {
                   <Input id="username" name="username" placeholder="Username" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="firstname">First name</Label>
+                  <Input id="firstname" name="firstname" placeholder="First name" />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="lastname">First name</Label>
+                  <Input id="lastname" name="lastname" placeholder="Last name" />
+                </div>
+                <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
                   <Input id="password" name="password" type="password" placeholder="Password" />
                 </div>

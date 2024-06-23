@@ -1,6 +1,7 @@
 import { getCurrentUserId } from '@/lib/auth';
-import EmployeeDashboard from './_components/employee_dashboard';
+import EmployeeDashboard from './_components/employee-dashboard';
 import { getRoleById } from '@/lib/user';
+import ManagerDashboard from './_components/manager-dashboard';
 
 
 
@@ -14,7 +15,7 @@ export default async function DashboardPage() {
   return (
     <>
       {role === 'casual' && <EmployeeDashboard />}
-      {role === 'manager' && "This is a manager dashboard..."}
+      {role === 'manager' && <ManagerDashboard />}
     </>
   )
   

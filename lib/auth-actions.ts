@@ -10,6 +10,8 @@ import { createAuthSession, destroySession } from '@/lib/auth';
 export async function signup(prevState: any, formData: FormData) {
     const userName = formData.get('username');
     const password = formData.get('password');
+    const firstname = formData.get('firstname');
+    const lastname = formData.get('lastname');
 
     let errors = {};
 
@@ -22,6 +24,28 @@ export async function signup(prevState: any, formData: FormData) {
           },
         };
     }
+
+    // type guard
+    if (typeof firstname !== 'string') {
+        // Handle the case where userName is null or not a string
+        return {
+          errors: {
+            userName: 'Please provide a valid username.',
+          },
+        };
+    }
+
+    // type guard
+    if (typeof lastname !== 'string') {
+        // Handle the case where userName is null or not a string
+        return {
+          errors: {
+            userName: 'Please provide a valid username.',
+          },
+        };
+    }
+
+
 
     // type guard
     if (typeof password !== 'string') {
@@ -42,7 +66,7 @@ export async function signup(prevState: any, formData: FormData) {
     const hashedPassword = hashUserPassword(password);
 
     try {
-        const user = await createUser(userName, hashedPassword);
+        const user = await createUser(userName, hashedPassword, firstname, lastname);
 
         await createAuthSession(user.id);
         redirect('/dashboard');

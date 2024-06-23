@@ -1,11 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 import { getAvailability } from '@/lib/availability';
 import { filterPastDates } from '@/lib/availability-actions';
-import { getAssignedShifts, getOpenShifts } from '@/lib/shifts';
+import { getAssignedShifts } from '@/lib/shifts';
 
-import { format, isAfter, parseISO, startOfDay } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 
 import { getCurrentUserId } from '@/lib/auth';
@@ -16,12 +16,10 @@ export default async function EmployeeDashboard() {
     const currentUserId = await getCurrentUserId();
     const availabilities = await getAvailability(currentUserId);
     const assignedShifts = await getAssignedShifts(currentUserId);
-    const openShifts = await getOpenShifts();
 
     //filter out past dates
     const filteredAvailabilities = filterPastDates(availabilities);
     const filteredAssignedShifts = filterPastDates(assignedShifts);
-    const filteredOpenShifts = filterPastDates(openShifts);
     
     return (
         <>
@@ -55,7 +53,7 @@ export default async function EmployeeDashboard() {
 
             <Card className="p-4 m-8 flex-1 flex-col">
                 <CardHeader>
-                <CardTitle>Your Assigned Shifts</CardTitle>
+                <CardTitle>Your Upcoming Assigned Shifts</CardTitle>
                 <CardDescription className="pt-2"><Link href="/your-availability">Click here to view all</Link></CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -80,34 +78,6 @@ export default async function EmployeeDashboard() {
                 </Table>
                 </CardContent>
             </Card>
-
-            {/* <Card className="p-4 m-8 flex-1 flex-col">
-                <CardHeader>
-                <CardTitle>Open Shifts</CardTitle>
-                <CardDescription className="pt-2"><Link href="/your-availability">Click here to view all</Link></CardDescription>
-                </CardHeader>
-                <CardContent>
-                <Table>
-                    <TableCaption className="pt-2"><Link href="/your-availability">Click here to view all</Link></TableCaption>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[100px]">Date</TableHead>
-                        <TableHead className="w-[100px]">Time Start</TableHead>
-                        <TableHead className="w-[100px]">Time Finish</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {filteredOpenShifts.map((filteredOpenShift) => (
-                            <TableRow key={filteredOpenShift.id}>
-                            <TableCell className="font-medium">{format(parseISO(filteredOpenShift.dateStart), 'MMMM do')}</TableCell>
-                            <TableCell>{format(parseISO(filteredOpenShift.dateStart), 'h:mm a')}</TableCell>
-                            <TableCell>{format(parseISO(filteredOpenShift.dateEnd), 'h:mm a')}</TableCell>
-                            </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-                </CardContent>
-            </Card> */}
 
             <OpenShiftsCard />
         </>

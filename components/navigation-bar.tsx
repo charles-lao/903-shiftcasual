@@ -8,7 +8,6 @@ import { Card } from './ui/card';
 
 export default function NavigationBar({ role }) {
 
-    console.log(role);
     return (
         <Card>
             <NavigationMenu>
@@ -56,7 +55,7 @@ export default function NavigationBar({ role }) {
                         ) : (
                             <>
                                 <NavigationMenuItem>
-                                    <Link href="/view-employees" legacyBehavior passHref>
+                                    <Link href="/employees" legacyBehavior passHref>
                                         <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
                                             View Employees
                                         </NavigationMenuLink>
