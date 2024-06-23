@@ -1,12 +1,21 @@
-import { Card } from '@/components/ui/card';
-import { verifyAuth } from '@/lib/auth';
+import { getCurrentUserId } from '@/lib/auth';
+import EmployeeDashboard from './_components/employee_dashboard';
 import { getRoleById } from '@/lib/user';
-import { redirect } from "next/navigation";
+
+
+
 
 export default async function DashboardPage() {
 
+  const currentUserId = await getCurrentUserId();
+  const role = getRoleById(currentUserId);
+  
+
   return (
-    <Card className="p-4 m-4">Test</Card>
+    <>
+      {role === 'casual' && <EmployeeDashboard />}
+      {role === 'manager' && "This is a manager dashboard..."}
+    </>
   )
   
 }

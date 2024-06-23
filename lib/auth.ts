@@ -94,3 +94,12 @@ export async function destroySession() {
       sessionCookie.attributes
   );
 }
+
+export async function getCurrentUserId() {
+    const currSession = await verifyAuth();
+
+    if (currSession.user){
+        return currSession.user.id;
+    }
+
+}

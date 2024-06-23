@@ -17,7 +17,7 @@ export default function NavigationBar({ role }) {
                         <NavigationMenuItem>
                             <Link href="/dashboard" legacyBehavior passHref>
                                 <NavigationMenuLink className={`${navigationMenuTriggerStyle()} font-bold text-xl`}>
-                                    AppName
+                                    ShiftCasual
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuItem>

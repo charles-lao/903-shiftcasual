@@ -16,7 +16,7 @@ export const userTable = sqliteTable("user", {
     id: text("id").notNull().primaryKey(),
     userName: text("username").notNull().unique(),
     password: text("password").notNull(),
-    role: text("role").notNull()
+    role: text("role").notNull() // manager or casual
 });
   
 export const sessionTable = sqliteTable("session", {
@@ -26,5 +26,24 @@ export const sessionTable = sqliteTable("session", {
         .references(() => userTable.id),
     expiresAt: integer("expires_at").notNull()
 });
+
+export const shiftsTable = sqliteTable("shifts", {
+    id: text("id").notNull().primaryKey(),
+    userId: text("user_id")
+      .references(() => userTable.id), // Nullable userId
+    dateStart: text("date_start").notNull(), // Using text to store ISO 8601 date-time strings
+    dateEnd: text("date_end").notNull(), // Using text to store ISO 8601 date-time strings
+});
+
+export const availabilityTable = sqliteTable("availability", {
+  id: text("id").notNull().primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id), // Non-nullable userId
+  dateStart: text("date_start").notNull(), // Using text to store ISO 8601 date-time strings
+  dateEnd: text("date_end").notNull(), // Using text to store ISO 8601 date-time strings
+});
+
+
 
 export const adapter = new DrizzleSQLiteAdapter(db, sessionTable, userTable);
