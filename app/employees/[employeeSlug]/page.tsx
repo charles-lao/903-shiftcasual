@@ -1,10 +1,17 @@
+import { getUserById } from "@/lib/user";
+import AssignShiftCard from "./_components/assign-shift-card";
 
 
 export default function EmployeeDetailsPage({ params }) {
 
+    
+
+    
+    const employee = getUserById(params.employeeSlug);
+
     return (
         <>
-            <h1>This is {params.employeeSlug}'s page.</h1>
+            <AssignShiftCard employee={employee} />
         </>
     )
 }

@@ -57,12 +57,12 @@ export async function getAllCasuals() {
 }
 
 export function getRoleById(id: string) {
-    const userRole = db
+    const results = db
         .select({
             role: userTable.role
         })
         .from(userTable)
         .where(eq(userTable.id, id))
         .get();
-    return userRole.role;
+    return results.role;
 }
