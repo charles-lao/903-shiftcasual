@@ -2,7 +2,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getCurrentUserId } from '@/lib/auth';
 
-import { getAvailability } from '@/lib/availability';
 import { filterPastDates } from '@/lib/availability-actions';
 import { getAssignedShifts } from '@/lib/shifts';
 import { format, parseISO } from 'date-fns';
@@ -31,13 +30,13 @@ export default async function EmployeeAssignedShiftsCard({mode, id="", employeeN
                 <CardHeader>
                 <CardTitle>
                     {mode == "dashboard" && "Your Upcoming Assigned Shifts"}
-                    {mode == "view-employee" && `${employeeName}'s Assigned Shifts` }
+                    {mode == "view-employee" && `${employeeName}'s Upcoming Assigned Shifts` }
                 </CardTitle>
-                {mode == "dashboard" && <CardDescription className="pt-2"><Link href="/your-availability">Click here to view all</Link></CardDescription> }
+                {mode == "dashboard" && <CardDescription className="pt-2"><Link href="/assigned-shifts">Click here to view all</Link></CardDescription> }
                 </CardHeader>
                 <CardContent>
                 <Table>
-                    {mode =="dashboard" && <TableCaption className="pt-2"><Link href="/your-availability">Click here to view all</Link></TableCaption> }
+                    {mode =="dashboard" && <TableCaption className="pt-2"><Link href="/assigned-shifts">Click here to view all</Link></TableCaption> }
                     <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">Date</TableHead>
