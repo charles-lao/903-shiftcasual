@@ -47,7 +47,7 @@ export default function NavigationBar({ role }) {
                                 <NavigationMenuItem>
                                     <Link href="/open-shifts" legacyBehavior passHref>
                                         <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-base`}>
-                                            Availability
+                                            Open Shifts
                                         </NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>

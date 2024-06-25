@@ -10,6 +10,8 @@ import Link from 'next/link';
 
 import { getCurrentUserId } from '@/lib/auth';
 import OpenShiftsCard from '@/components/open-shifts-card';
+import EmployeeAvailabilityCard from '@/components/employee-availability-card';
+import EmployeeAssignedShiftsCard from '@/components/employee-assigned-shifts-card';
 
 export default async function EmployeeDashboard() {
 
@@ -25,61 +27,10 @@ export default async function EmployeeDashboard() {
     
     return (
         <>
-            <Card className="p-4 m-8 flex-1 flex-col">
-                <CardHeader>
-                <CardTitle>Your Availability</CardTitle>
-                <CardDescription className="pt-2"><Link href="/availability">Click here to view all</Link></CardDescription>
-                </CardHeader>
-                <CardContent>
-                <Table>
-                    <TableCaption className="pt-2"><Link href="/availability">Click here to view all</Link></TableCaption>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[100px]">Date</TableHead>
-                        <TableHead className="w-[100px]">Time Start</TableHead>
-                        <TableHead className="w-[100px]">Time Finish</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {filteredAvailabilities.map((filteredAvailability) => (
-                        <TableRow key={filteredAvailability.id}>
-                        <TableCell className="font-medium">{format(parseISO(filteredAvailability.dateStart), 'MMMM do')}</TableCell>
-                        <TableCell>{format(parseISO(filteredAvailability.dateStart), 'h:mm a')}</TableCell>
-                        <TableCell>{format(parseISO(filteredAvailability.dateEnd), 'h:mm a')}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-                </CardContent>
-            </Card>
 
-            <Card className="p-4 m-8 flex-1 flex-col">
-                <CardHeader>
-                <CardTitle>Your Upcoming Assigned Shifts</CardTitle>
-                <CardDescription className="pt-2"><Link href="/your-availability">Click here to view all</Link></CardDescription>
-                </CardHeader>
-                <CardContent>
-                <Table>
-                    <TableCaption className="pt-2"><Link href="/your-availability">Click here to view all</Link></TableCaption>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[100px]">Date</TableHead>
-                        <TableHead className="w-[100px]">Time Start</TableHead>
-                        <TableHead className="w-[100px]">Time Finish</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {filteredAssignedShifts.map((filteredAssignedShift) => (
-                        <TableRow key={filteredAssignedShift.id}>
-                            <TableCell className="font-medium">{format(parseISO(filteredAssignedShift.dateStart), 'MMMM do')}</TableCell>
-                            <TableCell>{format(parseISO(filteredAssignedShift.dateStart), 'h:mm a')}</TableCell>
-                            <TableCell>{format(parseISO(filteredAssignedShift.dateEnd), 'h:mm a')}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-                </CardContent>
-            </Card>
+            <EmployeeAvailabilityCard mode="dashboard" />
+
+            <EmployeeAssignedShiftsCard mode="dashboard" />
 
             <OpenShiftsCard />
         </>
