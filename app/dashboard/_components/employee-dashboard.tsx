@@ -20,6 +20,8 @@ export default async function EmployeeDashboard() {
     //filter out past dates
     const filteredAvailabilities = filterPastDates(availabilities);
     const filteredAssignedShifts = filterPastDates(assignedShifts);
+
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     
     return (
         <>

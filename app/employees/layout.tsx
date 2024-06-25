@@ -30,7 +30,7 @@ export default async function RootLayout({
   const role = getRoleById(result.user.id);
 
   if(role != 'manager') {
-    return redirect('/');
+    return redirect('/dashboard');
   }
 
 

@@ -13,7 +13,7 @@ export async function assignShift(prevState: any, formData: FormData) {
     
     const startDateTime = await combineDateAndTime(date, timeStart);
     const endDateTime = await combineDateAndTime(date, timeEnd);
-    console.log(startDateTime);
+
     let errors = {};
 
     // type guard
@@ -79,6 +79,6 @@ export async function assignShift(prevState: any, formData: FormData) {
 
 
 export async function combineDateAndTime(date, time) {
-    const dateTime = new Date(`${date}T${time}:00Z`);
+    const dateTime = new Date(`${date}T${time}`);
     return dateTime.toISOString();
 };
