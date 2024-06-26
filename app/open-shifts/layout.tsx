@@ -34,7 +34,10 @@ export default async function OpenShiftsLayout({
         <body className={inter.className}>
             <NavigationBar role={role}/>
             <div className="p-8">
-              <h1 className="text-2xl font-bold">Available Open Shifts</h1>
+                <h1 className="text-2xl font-bold">
+                    {role === "casual" && "Available Open Shifts" }
+                    {role === "manager" && "Create Open Shifts" }
+                </h1>
               <Card className="flex justify-around mt-4">{children}</Card>
             </div> 
         </body>

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface Shift {
     id: string;
-    userId: string;
+    userId: string | null;
     dateStart: string;
     dateEnd: string;
 }
@@ -29,7 +29,7 @@ export async function getOpenShifts() {
     return results;
 }
 
-export async function createShift(userId: string, dateStart: string, dateEnd: string): Promise<Shift> {
+export async function createShift(userId: string | null, dateStart: string, dateEnd: string): Promise<Shift> {
     const shift: Shift = {
         id: uuidv4(),
         userId,

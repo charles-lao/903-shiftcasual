@@ -31,8 +31,8 @@ export const sessionTable = sqliteTable("session", {
 
 export const shiftsTable = sqliteTable("shifts", {
     id: text("id").notNull().primaryKey(),
-    userId: text("user_id")
-      .references(() => userTable.id), // Nullable userId
+    userId: text("user_id"),
+    //  .references(() => userTable.id), // Nullable userId
     dateStart: text("date_start").notNull(), // Using text to store ISO 8601 date-time strings
     dateEnd: text("date_end").notNull(), // Using text to store ISO 8601 date-time strings
 });

@@ -60,7 +60,6 @@ export async function assignShift(prevState: any, formData: FormData) {
     
     try {
         await createShift(employeeId, startDateTime, endDateTime);
-        console.log('the code reached this!');
         revalidatePath(`/employees/${employeeId}`);
         redirect(`/employees/${employeeId}`);
     } catch (error:any) {
@@ -77,8 +76,36 @@ export async function assignShift(prevState: any, formData: FormData) {
     return prevState;
 }
 
+export async function createOpenShift(prevState: any, formData: FormData) {
+
+  const date = formData.get('date');
+  const timeStart = formData.get('timeStart');
+  const timeEnd = formData.get('timeEnd');
+
+  const startDateTime = await combineDateAndTime(date, timeStart);
+  const endDateTime = await combineDateAndTime(date, timeEnd);
+
+  try {
+    await createShift("", startDateTime, endDateTime );
+    revalidatePath(`/open-shifts`);
+    redirect(`/open-shifts`);
+  } catch (error:any) {
+    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        return {
+            errors: {
+                email: 'It seems like an account for the chosen email already exists.'
+            }
+        };
+    }
+    throw error;
+  }
+
+  return prevState;
+}
+
 
 export async function combineDateAndTime(date, time) {
     const dateTime = new Date(`${date}T${time}`);
     return dateTime.toISOString();
 };
+
