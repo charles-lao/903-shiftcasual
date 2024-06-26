@@ -6,7 +6,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { format, parseISO } from "date-fns";
 
 
-export default async function OpenShiftsCard() {
+export default async function OpenShiftsCard({ mode="" }) {
 
     const openShifts = await getOpenShifts();
 
@@ -18,11 +18,11 @@ export default async function OpenShiftsCard() {
             <Card className="p-4 m-8 flex-1 flex-col">
                 <CardHeader>
                 <CardTitle>Open Shifts</CardTitle>
-                <CardDescription className="pt-2"><Link href="/your-availability">Click here to view all</Link></CardDescription>
+                {mode == "dashboard" && <CardDescription className="pt-2"><Link href="/open-shifts">Click here to view all</Link></CardDescription> }
                 </CardHeader>
                 <CardContent>
                 <Table>
-                    <TableCaption className="pt-2"><Link href="/your-availability">Click here to view all</Link></TableCaption>
+                    {mode == "dashboard" && <TableCaption className="pt-2"><Link href="/open-shifts">Click here to view all</Link></TableCaption> }
                     <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">Date</TableHead>

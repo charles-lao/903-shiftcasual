@@ -32,7 +32,7 @@ export default async function EmployeeDashboard() {
 
             <EmployeeAssignedShiftsCard mode="dashboard" />
 
-            <OpenShiftsCard />
+            <OpenShiftsCard mode="dashboard" />
         </>
     )
 }

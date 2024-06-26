@@ -10,11 +10,11 @@ import { getRoleById } from "@/lib/user";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Assigned Shifts",
+  title: "Open Shifts",
   description: "",
 };
 
-export default async function RootLayout({
+export default async function OpenShiftsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -29,16 +29,12 @@ export default async function RootLayout({
 
   const role = getRoleById(result.user.id);
 
-  if(role != 'casual') {
-    return redirect('/dashboard');
-  }
-
   return (
     <html lang="en">
         <body className={inter.className}>
             <NavigationBar role={role}/>
             <div className="p-8">
-              <h1 className="text-2xl font-bold">Your Assigned Shifts</h1>
+              <h1 className="text-2xl font-bold">Available Open Shifts</h1>
               <Card className="flex justify-around mt-4">{children}</Card>
             </div> 
         </body>

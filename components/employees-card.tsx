@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getAllCasuals } from "@/lib/user";
 import { Button } from './ui/button';
 
-export default async function EmployeesCard({ mode }) {
+export default async function EmployeesCard({ mode="" }) {
 
     const casualEmployees = await getAllCasuals();
 
