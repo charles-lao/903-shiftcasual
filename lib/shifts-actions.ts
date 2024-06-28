@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createShift } from "./shifts";
+import { createShift, setShiftUserId } from "./shifts";
 import { revalidatePath } from "next/cache";
 
 export async function assignShift(prevState: any, formData: FormData) {
@@ -104,7 +104,14 @@ export async function createOpenShift(prevState: any, formData: FormData) {
 }
 
 
-export async function combineDateAndTime(date, time) {
+export async function applyToOpenShift(shiftId: any, employeeId:any) {
+  console.log(`APPLY TO OPEN SHIFT FUNCTION CALLED by EMPLOYEE:${employeeId} and the shift is SHIFT:${shiftId}`);
+  setShiftUserId(shiftId, employeeId);
+  revalidatePath("/open-shifts");
+}
+
+
+export async function combineDateAndTime(date: any, time: any) {
     const dateTime = new Date(`${date}T${time}`);
     return dateTime.toISOString();
 };

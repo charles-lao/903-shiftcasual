@@ -1,17 +1,18 @@
-import { filterPastDates } from "@/lib/availability-actions";
-import { getOpenShifts } from "@/lib/shifts";
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import Link from "next/link";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import { format, parseISO } from "date-fns";
+import { Button } from "./ui/button";
+
+import { useTransition } from "react";
+import { applyToOpenShift } from "@/lib/shifts-actions";
 
 
-export default async function OpenShiftsCard({ mode="" }) {
+export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
 
-    const openShifts = await getOpenShifts();
-
-    //filter out past dates
-    const filteredOpenShifts = filterPastDates(openShifts);
+    let [isPending, startTransition] = useTransition();
 
     return (
         <>
@@ -28,14 +29,18 @@ export default async function OpenShiftsCard({ mode="" }) {
                         <TableHead className="w-[100px]">Date</TableHead>
                         <TableHead className="w-[100px]">Time Start</TableHead>
                         <TableHead className="w-[100px]">Time Finish</TableHead>
+                        {mode === "apply" && <TableHead className="w-[100px]">Actions</TableHead>}
                     </TableRow>
                     </TableHeader>
                     <TableBody>
-                    {filteredOpenShifts.map((filteredOpenShift) => (
-                            <TableRow key={filteredOpenShift.id}>
-                            <TableCell className="font-medium">{format(parseISO(filteredOpenShift.dateStart), 'MMMM do')}</TableCell>
-                            <TableCell>{format(parseISO(filteredOpenShift.dateStart), 'h:mm a')}</TableCell>
-                            <TableCell>{format(parseISO(filteredOpenShift.dateEnd), 'h:mm a')}</TableCell>
+                    {openShifts.map((openShift:any) => (
+                            <TableRow key={openShift.id}>
+                                <TableCell className="font-medium">{format(parseISO(openShift.dateStart), 'MMMM do')}</TableCell>
+                                <TableCell>{format(parseISO(openShift.dateStart), 'h:mm a')}</TableCell>
+                                <TableCell>{format(parseISO(openShift.dateEnd), 'h:mm a')}</TableCell>
+                                {mode === "apply" && <TableHead className="w-[100px]">
+                                    <Button onClick={() => startTransition (() => applyToOpenShift(openShift.id, employeeId))}>Apply</Button>
+                                </TableHead>}
                             </TableRow>
                     ))}
                     </TableBody>

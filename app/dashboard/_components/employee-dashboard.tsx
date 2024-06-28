@@ -3,7 +3,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 
 import { getAvailability } from '@/lib/availability';
 import { filterPastDates } from '@/lib/availability-actions';
-import { getAssignedShifts } from '@/lib/shifts';
+import { getAssignedShifts, getOpenShifts } from '@/lib/shifts';
 
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
@@ -18,10 +18,12 @@ export default async function EmployeeDashboard() {
     const currentUserId = await getCurrentUserId();
     const availabilities = await getAvailability(currentUserId);
     const assignedShifts = await getAssignedShifts(currentUserId);
+    const openShifts = await getOpenShifts();
 
     //filter out past dates
     const filteredAvailabilities = filterPastDates(availabilities);
     const filteredAssignedShifts = filterPastDates(assignedShifts);
+    const filteredOpenShifts = filterPastDates(openShifts);
 
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     
@@ -32,7 +34,7 @@ export default async function EmployeeDashboard() {
 
             <EmployeeAssignedShiftsCard mode="dashboard" />
 
-            <OpenShiftsCard mode="dashboard" />
+            <OpenShiftsCard openShifts={filteredOpenShifts} mode="dashboard" />
         </>
     )
 }

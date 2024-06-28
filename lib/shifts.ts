@@ -40,3 +40,9 @@ export async function createShift(userId: string | null, dateStart: string, date
 
     //return shift; // Return the created user object
 }
+
+export async function setShiftUserId(shiftId: string, userId: string){
+    await db.update(shiftsTable)
+    .set({ userId: userId })
+    .where(eq(shiftsTable.id, shiftId));
+}
