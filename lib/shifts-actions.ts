@@ -105,7 +105,7 @@ export async function createOpenShift(prevState: any, formData: FormData) {
 
 
 export async function applyToOpenShift(shiftId: any, employeeId:any) {
-  console.log(`APPLY TO OPEN SHIFT FUNCTION CALLED by EMPLOYEE:${employeeId} and the shift is SHIFT:${shiftId}`);
+  //console.log(`APPLY TO OPEN SHIFT FUNCTION CALLED by EMPLOYEE:${employeeId} and the shift is SHIFT:${shiftId}`);
   setShiftUserId(shiftId, employeeId);
   revalidatePath("/open-shifts");
 }

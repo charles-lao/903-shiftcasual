@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { availabilityTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-
+import { v4 as uuidv4 } from 'uuid';
 
 export async function getAvailability(id: string) {
     const availability = db
@@ -13,3 +13,14 @@ export async function getAvailability(id: string) {
     return availability;
 }
 
+export async function createAvailability(userId: string, dateStart: string, dateEnd: string) {
+    const availability = {
+        id: uuidv4(),
+        userId,
+        dateStart,
+        dateEnd
+    };
+    await db.insert(availabilityTable).values(availability);
+
+    //return shift; // Return the created user object
+}

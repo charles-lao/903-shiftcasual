@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 import { getAvailability } from '@/lib/availability';
-import { filterPastDates } from '@/lib/availability-actions';
+import { filterPastDates } from '@/lib/schedule';
 import { getAssignedShifts, getOpenShifts } from '@/lib/shifts';
 
 import { format, parseISO } from 'date-fns';

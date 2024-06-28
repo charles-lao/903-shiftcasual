@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getCurrentUserId } from '@/lib/auth';
 
-import { filterPastDates } from '@/lib/availability-actions';
+import { filterPastDates } from '@/lib/schedule';
 import { getAssignedShifts } from '@/lib/shifts';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';

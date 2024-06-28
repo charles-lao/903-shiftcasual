@@ -1,12 +1,36 @@
-import { isAfter, parseISO, startOfDay } from "date-fns";
+"use server"
 
-const currentDate = new Date();
-const currentDayStart = startOfDay(currentDate);
 
-export function filterPastDates(schedules: any) {
-    return schedules.filter(schedule => {
-        const startDate = parseISO(schedule.dateStart);
-        // Check if the start date is after or equal to the start of the current day
-        return isAfter(startDate, currentDayStart) || startDate.getTime() === currentDayStart.getTime();
-    });
+import { combineDateAndTime } from "./shifts-actions";
+import { createAvailability } from "./availability";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+
+
+export async function submitAvailability(prevState: any, formData: FormData) {
+    const employeeId = formData.get('employeeId');
+    const date = formData.get('date');
+    const timeStart = formData.get('timeStart');
+    const timeEnd = formData.get('timeEnd');
+
+    const startDateTime = await combineDateAndTime(date, timeStart);
+    const endDateTime = await combineDateAndTime(date, timeEnd);
+
+    
+
+  try {
+    await createAvailability(employeeId, startDateTime, endDateTime );
+    revalidatePath(`/availability`);
+    redirect(`/availability`);
+  } catch (error:any) {
+    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        return {
+            errors: {
+                email: 'It seems like an account for the chosen email already exists.'
+            }
+        };
+    }
+    throw error;
+  }
 }

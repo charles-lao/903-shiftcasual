@@ -3,7 +3,7 @@ import { getCurrentUserId } from '@/lib/auth';
 import { getRoleById, getUserById } from '@/lib/user';
 import CreateOpenShiftCard from './_components/create-open-shift-card';
 import { getOpenShifts } from '@/lib/shifts';
-import { filterPastDates } from '@/lib/availability-actions';
+import { filterPastDates } from '@/lib/schedule';
 import EmployeeAssignedShiftsCard from '@/components/employee-assigned-shifts-card';
 
 

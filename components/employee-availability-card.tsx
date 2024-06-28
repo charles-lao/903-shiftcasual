@@ -3,11 +3,11 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { getCurrentUserId } from '@/lib/auth';
 
 import { getAvailability } from '@/lib/availability';
-import { filterPastDates } from '@/lib/availability-actions';
+import { filterPastDates } from '@/lib/schedule';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 
-export default async function EmployeeAvailabilityCard({ mode, id="", employeeName="" }) { // mode = dashboard OR view-employee
+export default async function EmployeeAvailabilityCard({ mode="", id="", employeeName="" }) { // mode = dashboard OR view-employee
     
 
     let employeeId;
@@ -31,6 +31,7 @@ export default async function EmployeeAvailabilityCard({ mode, id="", employeeNa
                 <CardHeader>
                 <CardTitle>
                     {mode == "dashboard" && "Your Availability" }
+                    {mode == "availability" && "Your Availability" }
                     {mode == "view-employee" && `${employeeName}'s Availability`}
                 </CardTitle>
                 {mode == "dashboard" && <CardDescription className="pt-2"><Link href="/availability">Click here to view all</Link></CardDescription> }
