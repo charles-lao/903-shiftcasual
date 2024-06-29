@@ -9,6 +9,8 @@ import { Button } from "./ui/button";
 import { useTransition } from "react";
 import { applyToOpenShift } from "@/lib/shifts-actions";
 
+import { CalendarPlus  } from 'lucide-react';
+
 
 export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
 
@@ -39,7 +41,7 @@ export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
                                 <TableCell>{format(parseISO(openShift.dateStart), 'h:mm a')}</TableCell>
                                 <TableCell>{format(parseISO(openShift.dateEnd), 'h:mm a')}</TableCell>
                                 {mode === "apply" && <TableHead className="w-[100px]">
-                                    <Button onClick={() => startTransition (() => applyToOpenShift(openShift.id, employeeId))}>Apply</Button>
+                                    <Button className="mt-1 mb-1" onClick={() => startTransition (() => applyToOpenShift(openShift.id, employeeId))}><CalendarPlus className="p-1"/>Apply</Button>
                                 </TableHead>}
                             </TableRow>
                     ))}

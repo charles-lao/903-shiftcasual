@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { submitAvailability } from "@/lib/availability-actions";
+import { CalendarPlus } from "lucide-react";
 import { useFormState } from "react-dom";
 
 
@@ -36,7 +37,7 @@ export default function AddAvailabilityCard({ employee }: any) {
                     </CardContent>
 
                     <CardFooter> 
-                        <Button type="submit">Add Availbility</Button>
+                        <Button type="submit"><CalendarPlus className="p-1" />Add Availbility</Button>
                     </CardFooter>
                 </form>
             </Card>

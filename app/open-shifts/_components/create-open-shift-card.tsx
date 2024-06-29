@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import { useFormState } from "react-dom";
 import { createOpenShift } from "@/lib/shifts-actions";
 
+import { CalendarPlus } from 'lucide-react';
+
 export default function CreateOpenShiftCard() {
 
     const [formState, formAction] = useFormState(createOpenShift, {});
@@ -37,7 +39,7 @@ export default function CreateOpenShiftCard() {
                     </CardContent>
 
                     <CardFooter> 
-                        <Button type="submit">Add Open Shift</Button>
+                        <Button type="submit"><CalendarPlus className="p-1" />Add Open Shift</Button>
                     </CardFooter>
                 </form>
             </Card>

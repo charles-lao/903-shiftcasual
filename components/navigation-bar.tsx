@@ -5,8 +5,9 @@ import { logout } from '@/lib/auth-actions';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { Card } from './ui/card';
+import { LogOut, CalendarCheck } from 'lucide-react';
 
-export default function NavigationBar({ role }) {
+export default function NavigationBar({ role }: any) {
 
     return (
         <Card>
@@ -16,7 +17,7 @@ export default function NavigationBar({ role }) {
                         <NavigationMenuItem>
                             <Link href="/dashboard" legacyBehavior passHref>
                                 <NavigationMenuLink className={`${navigationMenuTriggerStyle()} font-bold text-xl`}>
-                                    ShiftCasual
+                                    <CalendarCheck className="mr-1"/>ShiftCasual
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuItem>
@@ -78,7 +79,7 @@ export default function NavigationBar({ role }) {
                                         e.preventDefault(); // Prevent the default link behavior
                                         logout(); // Call the logout function
                                     }} className={`${navigationMenuTriggerStyle()} text-base`}>
-                                        Logout
+                                        <LogOut className="mr-1"/>Logout
                                     </NavigationMenuLink>
                                 </Link>
                         </NavigationMenuItem>
