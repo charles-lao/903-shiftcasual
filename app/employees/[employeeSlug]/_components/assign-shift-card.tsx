@@ -9,10 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormState } from "react-dom";
 import { assignShift } from "@/lib/shifts-actions";
+import { format } from "date-fns";
+import { CalendarPlus } from "lucide-react";
 
-export default function AssignShiftCard({ employee }) {
+export default function AssignShiftCard({ employee }: any) {
 
     const [formState, formAction] = useFormState(assignShift, {});
+
+    const todayDate = format(new Date(), 'yyyy-MM-dd');
 
     return (
         <>
@@ -27,18 +31,18 @@ export default function AssignShiftCard({ employee }) {
                             <input type="hidden" id="employeeId" name="employeeId" value={employee.id} />
 
                             <Label htmlFor="date">Shift Date</Label>
-                            <Input className="w-100 mb-4" id="date" name="date" type="date" />
+                            <Input className="w-100 mb-4" id="date" defaultValue={todayDate} name="date" type="date" />
 
                             <Label htmlFor="timeStart">Start Time</Label>
-                            <Input className="w-100 mb-4" id="timeStart" name="timeStart" type="time"/>
+                            <Input className="w-100 mb-4" id="timeStart" defaultValue="07:00:00" name="timeStart" type="time"/>
 
                             <Label htmlFor="timeEnd">End Time</Label>
-                            <Input className="w-100 mb-4" id="timeEnd" name="timeEnd" type="time"/>
+                            <Input className="w-100 mb-4" id="timeEnd" defaultValue="21:00:00" name="timeEnd" type="time"/>
    
                     </CardContent>
 
                     <CardFooter> 
-                        <Button type="submit">Add schedule</Button>
+                        <Button type="submit"><CalendarPlus className="p-1" />Add schedule</Button>
                     </CardFooter>
                 </form>
             </Card>

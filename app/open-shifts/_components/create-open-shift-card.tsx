@@ -11,10 +11,13 @@ import { useFormState } from "react-dom";
 import { createOpenShift } from "@/lib/shifts-actions";
 
 import { CalendarPlus } from 'lucide-react';
+import { format } from "date-fns";
 
 export default function CreateOpenShiftCard() {
 
     const [formState, formAction] = useFormState(createOpenShift, {});
+
+    const todayDate = format(new Date(), 'yyyy-MM-dd');
 
     return (
         <>
@@ -28,7 +31,7 @@ export default function CreateOpenShiftCard() {
 
 
                             <Label htmlFor="date">Shift Date</Label>
-                            <Input className="w-100 mb-4" id="date" name="date" type="date" />
+                            <Input className="w-100 mb-4" id="date" defaultValue={todayDate} name="date" type="date" />
 
                             <Label htmlFor="timeStart">Start Time</Label>
                             <Input className="w-100 mb-4" id="timeStart" defaultValue="07:00:00" name="timeStart" type="time"/>

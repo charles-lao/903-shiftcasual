@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { submitAvailability } from "@/lib/availability-actions";
+import { format } from "date-fns";
 import { CalendarPlus } from "lucide-react";
 import { useFormState } from "react-dom";
 
@@ -12,6 +13,8 @@ import { useFormState } from "react-dom";
 export default function AddAvailabilityCard({ employee }: any) {
 
     const [formState, formAction] = useFormState(submitAvailability, {});
+
+    const todayDate = format(new Date(), 'yyyy-MM-dd');
 
     return (
         <>   
@@ -26,7 +29,7 @@ export default function AddAvailabilityCard({ employee }: any) {
                             <input type="hidden" id="employeeId" name="employeeId" value={employee.id} />
 
                             <Label htmlFor="date">Availability Date</Label>
-                            <Input className="w-100 mb-4" id="date" name="date" type="date" />
+                            <Input className="w-100 mb-4" id="date" defaultValue={todayDate} name="date" type="date" />
 
                             <Label htmlFor="timeStart">Start Time</Label>
                             <Input className="w-100 mb-4" id="timeStart" defaultValue="07:00:00" name="timeStart" type="time"/>

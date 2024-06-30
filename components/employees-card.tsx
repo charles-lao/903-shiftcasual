@@ -35,7 +35,7 @@ export default async function EmployeesCard({ mode="" }) {
                                     <TableCell className="font-medium"><Link href={`/employees/${casualEmployee.id}`}>{casualEmployee.id}</Link></TableCell>
                                     <TableCell><Link href={`/employees/${casualEmployee.id}`}>{`${casualEmployee.firstname} ${casualEmployee.lastname}`}</Link></TableCell>
                                     <TableCell><Link href={`/employees/${casualEmployee.id}`}>{casualEmployee.userName}</Link></TableCell>
-                                    { mode === "employeesPage" && <TableCell className="w-[100px]"><Button><Eye className="mr-1"/><Link href={`/employees/${casualEmployee.id}`}>View</Link></Button></TableCell> }
+                                    { mode === "employeesPage" && <TableCell className="w-[100px]"><Link href={`/employees/${casualEmployee.id}`}><Button><Eye className="mr-1"/>View</Button></Link></TableCell> }
                                     
                                 </TableRow>
                                 
