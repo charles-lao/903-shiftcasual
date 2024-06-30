@@ -6,9 +6,7 @@ import { getAvailability } from '@/lib/availability';
 import { filterPastDates } from '@/lib/schedule';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
-import { Button } from './ui/button';
 
-import { Trash2, FilePenLine  } from 'lucide-react';
 
 export default async function EmployeeAvailabilityCard({ mode="", id="", employeeName="" }) { // mode = dashboard OR view-employee
     
@@ -34,7 +32,6 @@ export default async function EmployeeAvailabilityCard({ mode="", id="", employe
                 <CardHeader>
                 <CardTitle>
                     {mode == "dashboard" && "Your Availability" }
-                    {mode == "availability" && "Your Availability" }
                     {mode == "view-employee" && `${employeeName}'s Availability`}
                 </CardTitle>
                 {mode == "dashboard" && <CardDescription className="pt-2"><Link href="/availability">Click here to view all</Link></CardDescription> }
@@ -56,12 +53,6 @@ export default async function EmployeeAvailabilityCard({ mode="", id="", employe
                         <TableCell className="font-medium">{format(parseISO(filteredAvailability.dateStart), 'MMMM do')}</TableCell>
                         <TableCell>{format(parseISO(filteredAvailability.dateStart), 'h:mm a')}</TableCell>
                         <TableCell>{format(parseISO(filteredAvailability.dateEnd), 'h:mm a')}</TableCell>
-                        {mode == "availability" && 
-                            <TableCell>
-                                <Button className="mr-2"><FilePenLine className="p-1"/></Button>
-                                <Button><Trash2 className="p-1"/></Button>
-                            </TableCell> 
-                        }
                         </TableRow>
                     ))}
                     </TableBody>

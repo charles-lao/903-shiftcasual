@@ -28,3 +28,21 @@ export async function createAvailability(userId: string, dateStart: string, date
 export async function deleteAvailability(id: string) {
     await db.delete(availabilityTable).where(eq(availabilityTable.id, id));
 }
+
+export async function getAvailabilityById(id: string) {
+    const result = db
+        .select()
+        .from(availabilityTable)
+        .where(eq(availabilityTable.id, id)).get();
+
+    return result;
+}
+
+export async function updateAvailability(id: string, dateStart: string, dateEnd: string ) {
+    await db.update(availabilityTable)
+        .set({ 
+            dateStart: dateStart,
+            dateEnd: dateEnd 
+        })
+        .where(eq(availabilityTable.id, id));
+}
