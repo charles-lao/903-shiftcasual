@@ -2,7 +2,7 @@
 
 
 import { combineDateAndTime } from "./shifts-actions";
-import { createAvailability } from "./availability";
+import { createAvailability, deleteAvailability } from "./availability";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -33,4 +33,11 @@ export async function submitAvailability(prevState: any, formData: FormData) {
     }
     throw error;
   }
+}
+
+
+export async function removeAvailability(availabilityId: any) {
+
+  await deleteAvailability(availabilityId);
+  revalidatePath("/availability");
 }

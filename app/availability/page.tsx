@@ -4,6 +4,8 @@ import { getOpenShifts } from '@/lib/shifts';
 import { filterPastDates } from '@/lib/schedule';
 import EmployeeAvailabilityCard from '@/components/employee-availability-card';
 import AddAvailabilityCard from './_components/add-availability-card';
+import ManageAvailabilityCard from '@/app/availability/_components/manage-availability-card';
+import { getAvailability } from '@/lib/availability';
 
 
 
@@ -17,11 +19,13 @@ export default async function AvailabilityPage() {
   const openShifts = await getOpenShifts();
   const filteredOpenShifts = filterPastDates(openShifts);
 
+  const availabilities = await getAvailability(currentUserId);
+
 
   return (
     <>
         <AddAvailabilityCard employee={employee} />
-        <EmployeeAvailabilityCard mode="availability" id={currentUserId} />
+        <ManageAvailabilityCard availabilities={availabilities} />
         
     </>
   )

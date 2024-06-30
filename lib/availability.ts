@@ -24,3 +24,7 @@ export async function createAvailability(userId: string, dateStart: string, date
 
     //return shift; // Return the created user object
 }
+
+export async function deleteAvailability(id: string) {
+    await db.delete(availabilityTable).where(eq(availabilityTable.id, id));
+}
