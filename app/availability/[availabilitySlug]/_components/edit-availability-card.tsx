@@ -11,8 +11,9 @@ import { useFormState } from "react-dom";
 
 
 
-export default function EditAvailabilityCard({ availability }: any) {
+export default function EditAvailabilityCard({ availability, employee }) {
     const [formState, formAction] = useFormState(editAvailability, {});
+
 
     return (
         <>   
@@ -25,6 +26,8 @@ export default function EditAvailabilityCard({ availability }: any) {
                     <CardContent>                    
 
                         <input type="hidden" id="availabilityId" name="availabilityId" value={availability.id} />
+
+                        <input type="hidden" id="employeeId" name="employeeId" value={employee.id} />
 
                         <Label htmlFor="date">Availability Date</Label>
                         <Input className="w-100 mb-4" id="date" defaultValue={format(parseISO(availability.dateStart), 'yyyy-MM-dd')} name="date" type="date" />

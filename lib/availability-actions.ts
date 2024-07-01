@@ -5,7 +5,7 @@ import { combineDateAndTime } from "./shifts-actions";
 import { createAvailability, deleteAvailability, getAvailability, updateAvailability } from "./availability";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { checkForConflicts } from "./schedule";
+import { checkForAvailabilityConflicts, checkForConflicts } from "./schedule";
 
 
 
@@ -45,6 +45,7 @@ export async function submitAvailability(prevState: any, formData: FormData) {
 
 
 export async function editAvailability(prevState: any, formData: FormData) {
+  const employeeId = formData.get('employeeId');
   const id = formData.get('availabilityId');
   const date = formData.get('date');
   const timeStart = formData.get('timeStart');
@@ -54,20 +55,26 @@ export async function editAvailability(prevState: any, formData: FormData) {
   const endDateTime = await combineDateAndTime(date, timeEnd);
 
   
+  const existingShifts = await getAvailability(employeeId); // Implement this function to fetch shifts from your database
 
-try {
-  await updateAvailability(id, startDateTime, endDateTime );
-  revalidatePath(`/availability/${id}`);
-} catch (error:any) {
-  if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-      return {
-          errors: {
-              email: 'It seems like an account for the chosen email already exists.'
-          }
-      };
+  //check for conflicts before storing to db
+  if(checkForAvailabilityConflicts(employeeId, startDateTime, endDateTime, existingShifts, id) == false ){
+
+    try {
+      await updateAvailability(id, startDateTime, endDateTime );
+      revalidatePath(`/availability/${id}`);
+    } catch (error:any) {
+      if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+          return {
+              errors: {
+                  email: 'It seems like an account for the chosen email already exists.'
+              }
+          };
+      }
+      throw error;
+    }
   }
-  throw error;
-}
+
 }
 
 

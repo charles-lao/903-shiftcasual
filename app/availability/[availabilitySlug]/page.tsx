@@ -25,7 +25,7 @@ export default async function EditAvailabilityPage({ params }: any) {
     return (
       <>
 
-        <EditAvailabilityCard availability={selectedAvailability} />
+        <EditAvailabilityCard availability={selectedAvailability} employee={employee} />
 
 
 
