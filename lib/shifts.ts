@@ -46,3 +46,13 @@ export async function setShiftUserId(shiftId: string, userId: string){
     .set({ userId: userId })
     .where(eq(shiftsTable.id, shiftId));
 }
+
+export async function getShiftById(id: string) {
+    const result = db
+        .select()
+        .from(shiftsTable)
+        .where(eq(shiftsTable.id, id))
+        .get();
+
+    return result;
+}

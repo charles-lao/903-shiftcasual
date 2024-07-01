@@ -1,8 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createShift, setShiftUserId } from "./shifts";
+import { createShift, getAssignedShifts, getShiftById, setShiftUserId } from "./shifts";
 import { revalidatePath } from "next/cache";
+import { checkForConflicts } from "./schedule";
 
 export async function assignShift(prevState: any, formData: FormData) {
   
@@ -56,24 +57,31 @@ export async function assignShift(prevState: any, formData: FormData) {
         };
     }
 
-    // create new function??
+
+    //compare to shifts
+    const existingShifts = await getAssignedShifts(employeeId); // Implement this function to fetch shifts from your database
+
+    //check for conflicts before storing to db
+    if(checkForConflicts(employeeId, startDateTime, endDateTime, existingShifts) == false ){
+
     
-    try {
-        await createShift(employeeId, startDateTime, endDateTime);
-        revalidatePath(`/employees/${employeeId}`);
-        redirect(`/employees/${employeeId}`);
-    } catch (error:any) {
-        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-            return {
-                errors: {
-                    email: 'It seems like an account for the chosen email already exists.'
-                }
-            };
-        }
-        throw error;
+      try {
+          await createShift(employeeId, startDateTime, endDateTime);
+          revalidatePath(`/employees/${employeeId}`);
+          redirect(`/employees/${employeeId}`);
+      } catch (error:any) {
+          if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+              return {
+                  errors: {
+                      email: 'It seems like an account for the chosen email already exists.'
+                  }
+              };
+          }
+          throw error;
+      }
+      
     }
 
-    return prevState;
 }
 
 export async function createOpenShift(prevState: any, formData: FormData) {
@@ -106,8 +114,21 @@ export async function createOpenShift(prevState: any, formData: FormData) {
 
 export async function applyToOpenShift(shiftId: any, employeeId:any) {
   //console.log(`APPLY TO OPEN SHIFT FUNCTION CALLED by EMPLOYEE:${employeeId} and the shift is SHIFT:${shiftId}`);
-  setShiftUserId(shiftId, employeeId);
-  revalidatePath("/open-shifts");
+
+  //compare to shifts
+  const existingShifts = await getAssignedShifts(employeeId); // Implement this function to fetch shifts from your database
+
+  const newShift = await getShiftById(shiftId);
+
+  //check for conflicts before storing to db
+  if(checkForConflicts(employeeId, newShift.dateStart, newShift.dateEnd, existingShifts) == false ){
+  
+  
+    setShiftUserId(shiftId, employeeId);
+    revalidatePath("/open-shifts");
+  }
+
+  
 }
 
 
