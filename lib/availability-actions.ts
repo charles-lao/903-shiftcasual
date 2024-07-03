@@ -15,6 +15,11 @@ export async function submitAvailability(prevState: any, formData: FormData) {
   const timeStart = formData.get('timeStart');
   const timeEnd = formData.get('timeEnd');
 
+  //type check
+  if (typeof employeeId !== "string") {
+    throw new Error("Employee ID is not a string");
+  }
+
   const startDateTime = await combineDateAndTime(date, timeStart);
   const endDateTime = await combineDateAndTime(date, timeEnd);
 
@@ -50,6 +55,16 @@ export async function editAvailability(prevState: any, formData: FormData) {
   const date = formData.get('date');
   const timeStart = formData.get('timeStart');
   const timeEnd = formData.get('timeEnd');
+
+  //type check
+  if (typeof employeeId !== "string") {
+    throw new Error("Employee ID is not a string");
+  }
+
+  //type check
+  if (typeof id !== "string") {
+    throw new Error("Employee ID is not a string");
+  }
 
   const startDateTime = await combineDateAndTime(date, timeStart);
   const endDateTime = await combineDateAndTime(date, timeEnd);

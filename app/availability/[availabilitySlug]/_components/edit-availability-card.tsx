@@ -11,7 +11,7 @@ import { useFormState } from "react-dom";
 
 
 
-export default function EditAvailabilityCard({ availability, employee }) {
+export default function EditAvailabilityCard({ availability, employee }: any) {
     const [formState, formAction] = useFormState(editAvailability, {});
 
 

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export function hashUserPassword(password:string) {
+export function hashUserPassword(password:any) {
   
   const salt = crypto.randomBytes(16).toString('hex');
   
@@ -9,7 +9,7 @@ export function hashUserPassword(password:string) {
   return hashedPassword.toString('hex') + ':' + salt;
 }
 
-export function verifyPassword(storedPassword:string, suppliedPassword:string) {
+export function verifyPassword(storedPassword:any, suppliedPassword:any) {
   const [hashedPassword, salt] = storedPassword.split(':');
   const hashedPasswordBuf = Buffer.from(hashedPassword, 'hex');
   const suppliedPasswordBuf = crypto.scryptSync(suppliedPassword, salt, 64);

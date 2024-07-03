@@ -13,18 +13,34 @@ const currentDayStart = startOfDay(currentDate);
 //     });
 // }
 
+
+//old version
+// export function filterPastDates(schedules: any) {
+//   return schedules
+//       .filter(schedule => {
+//           const startDate = parseISO(schedule.dateStart);
+//           // Check if the start date is after or equal to the start of the current day
+//           return isAfter(startDate, currentDayStart) || startDate.getTime() === currentDayStart.getTime();
+//       })
+//       .sort((a, b) => {
+//           const startDateA = parseISO(a.dateStart);
+//           const startDateB = parseISO(b.dateStart);
+//           return startDateA - startDateB;
+//       });
+// }
+
 export function filterPastDates(schedules: any) {
   return schedules
-      .filter(schedule => {
-          const startDate = parseISO(schedule.dateStart);
-          // Check if the start date is after or equal to the start of the current day
-          return isAfter(startDate, currentDayStart) || startDate.getTime() === currentDayStart.getTime();
-      })
-      .sort((a, b) => {
-          const startDateA = parseISO(a.dateStart);
-          const startDateB = parseISO(b.dateStart);
-          return startDateA - startDateB;
-      });
+    .filter(schedule => {
+      const startDate = parseISO(schedule.dateStart);
+      // Check if the start date is after or equal to the start of the current day
+      return isAfter(startDate, currentDayStart) || startDate.getTime() === currentDayStart.getTime();
+    })
+    .sort((a, b) => {
+      const startDateA = parseISO(a.dateStart).getTime();
+      const startDateB = parseISO(b.dateStart).getTime();
+      return startDateA - startDateB;
+    });
 }
 
 

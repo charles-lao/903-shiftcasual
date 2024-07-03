@@ -1,9 +1,9 @@
 "use client";
 import { db } from "@/db/index";
 import { userTable } from "@/db/schema"
-import * as React from "react"
+import * as React from "react";
  
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,19 +11,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import { login } from "@/lib/auth-actions"
+import { login } from "@/lib/auth-actions";
 
 
 export default function Home() {
-  //const data1:any = await db.select().from(userTable); // SAMPLE SELECT ALL on DRIZZLE
-  //const data1:any = await db.insert(person).values({ id: 2, userName: 'Charles123', userCountry: 'Philippines' }); // SAMPLE INSERT on DRIZZLE
-
-  //console.log(data1);
 
 
   const [formState, formAction] = useFormState(login, {});
@@ -52,7 +48,7 @@ export default function Home() {
           <CardFooter className="flex flex-col items-center space-y-2">
             <Button type="submit">Login</Button>
             <Link href="/register">
-              <p className="text-sm">Don't have an account? Sign up</p>
+              <p className="text-sm">Don&apos;t have an account? Sign up</p>
             </Link>
           </CardFooter>
         </Card>

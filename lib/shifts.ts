@@ -38,7 +38,7 @@ export async function createShift(userId: string | null, dateStart: string, date
     };
     await db.insert(shiftsTable).values(shift);
 
-    //return shift; // Return the created user object
+    return shift; // Return the created user object
 }
 
 export async function setShiftUserId(shiftId: string, userId: string){
