@@ -2,7 +2,7 @@ import OpenShiftsCard from '@/components/open-shifts-card';
 import { getCurrentUserId } from '@/lib/auth';
 import { getRoleById, getUserById } from '@/lib/user';
 import CreateOpenShiftCard from './_components/create-open-shift-card';
-import { getOpenShifts } from '@/lib/shifts';
+import { getAssignedShifts, getOpenShifts } from '@/lib/shifts';
 import { filterPastDates } from '@/lib/schedule';
 import EmployeeAssignedShiftsCard from '@/components/employee-assigned-shifts-card';
 
@@ -19,6 +19,14 @@ export default async function OpenShiftsPage() {
   const filteredOpenShifts = filterPastDates(openShifts);
 
 
+
+  const assignedShifts = await getAssignedShifts(currentUserId);
+
+
+  //filter out past dates
+  const filteredAssignedShifts = filterPastDates(assignedShifts);
+
+
   return (
     <>
         {role == "manager" && 
@@ -31,7 +39,7 @@ export default async function OpenShiftsPage() {
         {role == "casual" && 
           <>
             <OpenShiftsCard openShifts={filteredOpenShifts} mode="apply" employeeId={employee.id}/> 
-            <EmployeeAssignedShiftsCard mode="view-employee" id={employee.id} employeeName={`${employee.firstname} ${employee.lastname} `}/>
+            <EmployeeAssignedShiftsCard mode="edit-assigned" employee={employee} assignedShifts={filteredAssignedShifts}/>
           </>
         }
     </>

@@ -131,6 +131,16 @@ export async function applyToOpenShift(shiftId: any, employeeId:any) {
   
 }
 
+export async function removeAssignedShift(shiftId: any, source: string) {
+  console.log(`removeAssignedShift is called for shift:${shiftId}`);
+  
+  setShiftUserId(shiftId, "");
+  revalidatePath(source);
+
+  
+  
+}
+
 
 export async function combineDateAndTime(date: any, time: any) {
     const dateTime = new Date(`${date}T${time}`);

@@ -12,6 +12,7 @@ import { getCurrentUserId } from '@/lib/auth';
 import OpenShiftsCard from '@/components/open-shifts-card';
 import EmployeeAvailabilityCard from '@/components/employee-availability-card';
 import EmployeeAssignedShiftsCard from '@/components/employee-assigned-shifts-card';
+import { getUserById } from '@/lib/user';
 
 export default async function EmployeeDashboard() {
 
@@ -19,6 +20,8 @@ export default async function EmployeeDashboard() {
     const availabilities = await getAvailability(currentUserId);
     const assignedShifts = await getAssignedShifts(currentUserId);
     const openShifts = await getOpenShifts();
+
+    const employee = await getUserById(currentUserId);
 
     //filter out past dates
     const filteredAvailabilities = filterPastDates(availabilities);
@@ -32,7 +35,7 @@ export default async function EmployeeDashboard() {
 
             <EmployeeAvailabilityCard mode="dashboard" />
 
-            <EmployeeAssignedShiftsCard mode="dashboard" />
+            <EmployeeAssignedShiftsCard mode="dashboard" employee={employee} assignedShifts={filteredAssignedShifts}/>
 
             <OpenShiftsCard openShifts={filteredOpenShifts} mode="dashboard" />
         </>

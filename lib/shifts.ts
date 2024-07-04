@@ -45,6 +45,7 @@ export async function setShiftUserId(shiftId: string, userId: string){
     await db.update(shiftsTable)
     .set({ userId: userId })
     .where(eq(shiftsTable.id, shiftId));
+    console.log("setShiftUser is called");
 }
 
 export async function getShiftById(id: string) {

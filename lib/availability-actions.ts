@@ -97,4 +97,5 @@ export async function removeAvailability(availabilityId: any) {
 
   await deleteAvailability(availabilityId);
   revalidatePath("/availability");
+  
 }
