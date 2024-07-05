@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createShift, getAssignedShifts, getShiftById, setShiftUserId } from "./shifts";
+import { createShift, deleteShift, getAssignedShifts, getShiftById, setShiftUserId } from "./shifts";
 import { revalidatePath } from "next/cache";
 import { checkForConflicts } from "./schedule";
 
@@ -132,13 +132,16 @@ export async function applyToOpenShift(shiftId: any, employeeId:any) {
 }
 
 export async function removeAssignedShift(shiftId: any, source: string) {
-  console.log(`removeAssignedShift is called for shift:${shiftId}`);
   
   setShiftUserId(shiftId, "");
   revalidatePath(source);
+  
+}
 
-  
-  
+
+export async function deleteOpenShift(shiftId: any) {
+  deleteShift(shiftId);
+  revalidatePath("/open-shifts");
 }
 
 

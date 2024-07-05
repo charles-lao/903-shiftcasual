@@ -7,9 +7,9 @@ import { format, parseISO } from "date-fns";
 import { Button } from "./ui/button";
 
 import { useTransition } from "react";
-import { applyToOpenShift } from "@/lib/shifts-actions";
+import { applyToOpenShift, deleteOpenShift } from "@/lib/shifts-actions";
 
-import { CalendarPlus  } from 'lucide-react';
+import { CalendarPlus, X  } from 'lucide-react';
 
 
 export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
@@ -32,6 +32,7 @@ export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
                         <TableHead className="w-[100px]">Time Start</TableHead>
                         <TableHead className="w-[100px]">Time Finish</TableHead>
                         {mode === "apply" && <TableHead className="w-[100px]">Actions</TableHead>}
+                        {mode === "edit" && <TableHead className="w-[100px]">Actions</TableHead>}
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -40,9 +41,12 @@ export default function OpenShiftsCard({ openShifts, mode="", employeeId="" }) {
                                 <TableCell className="font-medium">{format(parseISO(openShift.dateStart), 'MMMM do')}</TableCell>
                                 <TableCell>{format(parseISO(openShift.dateStart), 'h:mm a')}</TableCell>
                                 <TableCell>{format(parseISO(openShift.dateEnd), 'h:mm a')}</TableCell>
-                                {mode === "apply" && <TableHead className="w-[100px]">
+                                {mode === "apply" && <TableCell className="w-[100px]">
                                     <Button className="mt-1 mb-1" onClick={() => startTransition (() => applyToOpenShift(openShift.id, employeeId))}><CalendarPlus className="p-1"/>Apply</Button>
-                                </TableHead>}
+                                </TableCell>}
+                                {mode === "edit" && <TableCell className="w-[100px]">
+                                    <Button className="mt-1 mb-1" onClick={() => startTransition (() => deleteOpenShift(openShift.id))}><X className="mr-1"/>Delete</Button>
+                                </TableCell>}
                             </TableRow>
                     ))}
                     </TableBody>

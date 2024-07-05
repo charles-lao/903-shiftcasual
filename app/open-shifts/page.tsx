@@ -32,7 +32,7 @@ export default async function OpenShiftsPage() {
         {role == "manager" && 
           <>
             <CreateOpenShiftCard /> 
-            <OpenShiftsCard openShifts={filteredOpenShifts} mode="" />
+            <OpenShiftsCard openShifts={filteredOpenShifts} mode="edit" />
           </>
         }
 
