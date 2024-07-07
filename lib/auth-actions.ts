@@ -10,6 +10,7 @@ import { createAuthSession, destroySession } from '@/lib/auth';
 export async function signup(prevState: any, formData: FormData) {
     const userName = formData.get('username');
     const password = formData.get('password');
+    const confirmPassword = formData.get('confirmPassword');
     const firstname = formData.get('firstname');
     const lastname = formData.get('lastname');
 
@@ -57,6 +58,14 @@ export async function signup(prevState: any, formData: FormData) {
         };
     }
 
+    if(password != confirmPassword) {
+      return {
+        errors: {
+          password: 'Error: Passwords do not match.',
+        },
+      };
+    }
+
     if (Object.keys(errors).length > 0) {
         return {
             errors,
@@ -74,7 +83,7 @@ export async function signup(prevState: any, formData: FormData) {
         if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
             return {
                 errors: {
-                    email: 'It seems like an account for the chosen email already exists.'
+                    message: 'It seems like an account for the chosen email already exists.'
                 }
             };
         }
@@ -88,6 +97,8 @@ export async function signup(prevState: any, formData: FormData) {
 export async function login(prevState: any, formData: FormData) {
     const userName = formData.get('username');
     const password = formData.get('password');
+
+    
 
     if (typeof userName !== 'string') {
         // Handle the case where userName is null or not a string
@@ -106,6 +117,7 @@ export async function login(prevState: any, formData: FormData) {
                 email: 'Could not authenticate user, please check your credentials.'
             },
         };
+        
      }
 
 

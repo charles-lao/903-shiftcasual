@@ -29,13 +29,19 @@ export default function AddAvailabilityCard({ employee }: any) {
                             <input type="hidden" id="employeeId" name="employeeId" value={employee.id} />
 
                             <Label htmlFor="date">Availability Date</Label>
-                            <Input className="w-100 mb-4" id="date" defaultValue={todayDate} name="date" type="date" />
+                            <Input className="w-100 mb-4" id="date" defaultValue={todayDate} min={todayDate} name="date" type="date" required/>
 
                             <Label htmlFor="timeStart">Start Time</Label>
-                            <Input className="w-100 mb-4" id="timeStart" defaultValue="07:00:00" name="timeStart" type="time"/>
+                            <Input className="w-100 mb-4" id="timeStart" defaultValue="07:00:00" name="timeStart" type="time" required/>
 
                             <Label htmlFor="timeEnd">End Time</Label>
-                            <Input className="w-100 mb-4" id="timeEnd" defaultValue="21:00:00" name="timeEnd" type="time"/>
+                            <Input className="w-100 mb-4" id="timeEnd" defaultValue="21:00:00" name="timeEnd" type="time" required/>
+
+                            {formState.errors && (
+                                Object.keys(formState.errors)?.map((error) => (
+                                    <p key={error} className="text-red-500 font-medium">{formState.errors[error]}</p>
+                                ))
+                            )}
    
                     </CardContent>
 

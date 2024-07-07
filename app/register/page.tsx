@@ -35,24 +35,31 @@ export default function RegisterPage() {
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="username">Username</Label>
-                  <Input id="username" name="username" placeholder="Username" />
+                  <Input id="username" required name="username" placeholder="Username" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="firstname">First name</Label>
-                  <Input id="firstname" name="firstname" placeholder="First name" />
+                  <Input id="firstname" required name="firstname" placeholder="First name" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="lastname">First name</Label>
-                  <Input id="lastname" name="lastname" placeholder="Last name" />
+                  <Input id="lastname" required name="lastname" placeholder="Last name" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" name="password" type="password" placeholder="Password" />
+                  <Input id="password" required name="password" type="password" placeholder="Password" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="confirm-password">Confirm Password</Label>
-                  <Input id="confirm-password" type="password" placeholder="Confirm Password" />
+                  <Input id="confirm-password" required name="confirmPassword" type="password" placeholder="Confirm Password" />
                 </div>
+
+                {formState.errors && (
+                  Object.keys(formState.errors).map((error) => (
+                    <p className="text-red-500 font-medium">{formState.errors[error]}</p>
+                  ))
+                )}
+
               </div>
             
           </CardContent>

@@ -68,6 +68,7 @@ export async function assignShift(prevState: any, formData: FormData) {
       try {
           await createShift(employeeId, startDateTime, endDateTime);
           revalidatePath(`/employees/${employeeId}`);
+          return { errors: {} };
           redirect(`/employees/${employeeId}`);
       } catch (error:any) {
           if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
@@ -80,8 +81,15 @@ export async function assignShift(prevState: any, formData: FormData) {
           throw error;
       }
       
+    } else {
+      return {
+        errors: {
+          schedule: 'Shift assignment failed: Schedule conflict detected.',
+        },
+      };
     }
 
+  
 }
 
 export async function createOpenShift(prevState: any, formData: FormData) {
@@ -96,6 +104,7 @@ export async function createOpenShift(prevState: any, formData: FormData) {
   try {
     await createShift("", startDateTime, endDateTime );
     revalidatePath(`/open-shifts`);
+    return { errors: {} };
     redirect(`/open-shifts`);
   } catch (error:any) {
     if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {

@@ -37,12 +37,19 @@ export default function Home() {
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="username">Username</Label>
-                  <Input id="username" name="username" placeholder="Username" />
+                  <Input id="username" name="username" placeholder="Username" required />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" name="password" type="password" placeholder="Password" />
+                  <Input id="password" name="password" type="password" placeholder="Password" required />
                 </div>
+
+                {formState.errors && (
+                  Object.keys(formState.errors).map((error) => (
+                    <p className="text-red-500">{formState.errors[error]}</p>
+                  ))
+                )}
+
               </div>
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-2">

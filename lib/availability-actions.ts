@@ -15,6 +15,8 @@ export async function submitAvailability(prevState: any, formData: FormData) {
   const timeStart = formData.get('timeStart');
   const timeEnd = formData.get('timeEnd');
 
+  let errors = {};
+
   //type check
   if (typeof employeeId !== "string") {
     throw new Error("Employee ID is not a string");
@@ -26,13 +28,21 @@ export async function submitAvailability(prevState: any, formData: FormData) {
   //check new availability for conflicts on existing availability schedule.
   const existingShifts = await getAvailability(employeeId); // Implement this function to fetch shifts from your database
 
+  if (Object.keys(errors).length > 0) {
+    return {
+        errors,
+    };
+  }
+
   //check for conflicts before storing to db
   if(checkForConflicts(employeeId, startDateTime, endDateTime, existingShifts) == false ){
 
     try {
       await createAvailability(employeeId, startDateTime, endDateTime );
       revalidatePath(`/availability`);
-      redirect(`/availability`);
+      return { errors: {} };
+      //redirect(`/availability`);
+      
     } catch (error:any) {
       if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
           return {
@@ -44,6 +54,12 @@ export async function submitAvailability(prevState: any, formData: FormData) {
       throw error;
     }
 
+  } else {
+    return {
+      errors: {
+        schedule: 'Availability submission failed: Availability schedule conflict detected.',
+      },
+    };
   }
 
 }
@@ -78,6 +94,7 @@ export async function editAvailability(prevState: any, formData: FormData) {
     try {
       await updateAvailability(id, startDateTime, endDateTime );
       revalidatePath(`/availability/${id}`);
+      return { errors: {} };
     } catch (error:any) {
       if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
           return {
@@ -88,6 +105,12 @@ export async function editAvailability(prevState: any, formData: FormData) {
       }
       throw error;
     }
+  } else {
+    return {
+      errors: {
+        schedule: 'Availability update failed: Availability schedule conflict detected. Please check your other availabilities.',
+      },
+    };
   }
 
 }
