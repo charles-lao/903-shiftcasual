@@ -46,7 +46,7 @@ export default function Home() {
 
                 {formState.errors && (
                   Object.keys(formState.errors).map((error) => (
-                    <p className="text-red-500">{formState.errors[error]}</p>
+                    <p key={error} className="text-red-500">{formState.errors[error]}</p>
                   ))
                 )}
 

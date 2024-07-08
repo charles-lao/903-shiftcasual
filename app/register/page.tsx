@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
                 {formState.errors && (
                   Object.keys(formState.errors).map((error) => (
-                    <p className="text-red-500 font-medium">{formState.errors[error]}</p>
+                    <p key={error} className="text-red-500 font-medium">{formState.errors[error]}</p>
                   ))
                 )}
 
