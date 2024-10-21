@@ -19,30 +19,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   //protect route
   const result = await verifyAuth();
 
-  if(!result.user) {
-    return redirect('/');
+  if (!result.user) {
+    return redirect("/");
   }
 
   const role = getRoleById(result.user.id);
 
-  if(role != 'manager') {
-    return redirect('/dashboard');
+  if (role != "manager") {
+    return redirect("/dashboard");
   }
-
 
   return (
     <html lang="en">
-        <body className={inter.className}>
-            <NavigationBar role={role}/>
-            <div className="p-8">
-              <h1 className="text-2xl font-bold">Employees</h1>
-              <Card className="flex justify-around mt-4">{children}</Card>
-            </div> 
-        </body>
+      <body className={inter.className}>
+        <NavigationBar role={role} />
+        <div className="p-8">
+          <h1 className="text-2xl font-bold">Employees</h1>
+          <Card className="flex justify-around mt-4">{children}</Card>
+        </div>
+      </body>
     </html>
   );
 }
