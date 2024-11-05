@@ -7,13 +7,13 @@ const nextConfig = {
 
   compress: false,
 
-  // Disable JS/TS minification
-  swcMinify: false, // Disables JavaScript/TypeScript minification
+  // // Disable JS/TS minification
+  // swcMinify: false, // Disables JavaScript/TypeScript minification
 
-  // Disable CSS minification (Experimental)
-  experimental: {
-    optimizeCss: false, // Disable CSS minification
-  },
+  // // Disable CSS minification (Experimental)
+  // experimental: {
+  //   optimizeCss: false, // Disable CSS minification
+  // },
 
   // Disable Next.js image optimization
   images: {
@@ -36,14 +36,14 @@ const nextConfig = {
     ];
   },
 
-  // Custom Webpack configuration to disable minification
-  webpack: (config, { isServer }) => {
-    // Disable minification in production
-    if (!isServer) {
-      config.optimization.minimizer = [];
-    }
-    return config;
-  },
+  // // Custom Webpack configuration to disable minification
+  // webpack: (config, { isServer }) => {
+  //   // Disable minification in production
+  //   if (!isServer) {
+  //     config.optimization.minimizer = [];
+  //   }
+  //   return config;
+  // },
 };
 
 export default nextConfig;
