@@ -15,40 +15,40 @@ const nextConfig = {
     optimizeCss: false, // Disable CSS minification
   },
 
-  // Disable Next.js image optimization
-  images: {
-    unoptimized: true, // Disable image optimization
-  },
-
-  // // Disable cache headers for static assets
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/(.*)", // Applies to all routes
-  //       headers: [
-  //         {
-  //           key: "Cache-Control",
-  //           value:
-  //             "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
-  //         },
-  //       ],
-  //     },
-  //   ];
+  // // Disable Next.js image optimization
+  // images: {
+  //   unoptimized: true, // Disable image optimization
   // },
 
+  // Disable cache headers for static assets
   async headers() {
     return [
       {
-        source: "/(.*)", // Apply to all routes
+        source: "/(.*)", // Applies to all routes
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable", // Example for static caching
+            value:
+              "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
           },
         ],
       },
     ];
   },
+
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/(.*)", // Apply to all routes
+  //       headers: [
+  //         {
+  //           key: "Cache-Control",
+  //           value: "public, max-age=31536000, immutable", // Example for static caching
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 
   // Custom Webpack configuration to disable minification
   webpack: (config, { isServer }) => {

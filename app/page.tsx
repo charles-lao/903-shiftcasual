@@ -23,21 +23,19 @@ export default function Home() {
     <div
       className="h-screen flex items-center justify-center" // Flexbox centering
       style={{
-        backgroundImage: "url('/images/background.jpg')",
+        backgroundImage: "url('/images/background.webp')",
         backgroundSize: "cover",
       }} // Background image for the entire screen
     >
       <form action={formAction}>
         <Card className="w-[350px] p-4 shadow-md">
           <CardHeader>
-            {/* Use Image component with unoptimized prop and mx-auto for centering */}
             <Image
-              src="/images/header.jpg" // Update the path to your image file
+              src="/images/header.webp"
               alt="Website Logo"
-              width={200} // Adjust the width as needed
-              height={200} // Adjust the height as needed
-              unoptimized // Disable image optimization for baseline testing
-              className="mx-auto mb-2" // Centers only the image
+              width={200}
+              height={200}
+              className="mx-auto mb-2"
             />
             <CardTitle className="text-center">Login account</CardTitle>
             <CardDescription className="text-center">
